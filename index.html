@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="description" content="我的音乐人格 · 网易云歌单品味可视化" />
+    <title>我的音乐人格</title>
+    <link rel="preconnect" href="https://p1.music.126.net" crossorigin />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <header id="topbar">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-text">我的音乐人格</span>
+      </div>
+      <div class="topbar-meta">
+        <span id="snapshot-date">—</span>
+        <button id="snapshot-btn" class="ghost" title="切换历史快照">⏱ 时光机</button>
+        <button id="swap-btn" class="ghost" title="换一份歌单">🔌 换歌单</button>
+      </div>
+    </header>
+
+    <main id="app-root">
+      <section id="hero" class="hero">
+        <div class="hero-eyebrow"><span id="creator">—</span> · <span id="track-count">—</span> 首</div>
+        <h1 id="playlist-name">载入中…</h1>
+        <p id="playlist-desc" class="hero-desc"></p>
+      </section>
+
+      <section id="report" class="report"></section>
+
+      <section id="sections" class="sections"></section>
+
+      <footer class="footer">
+        <span>Music is the shorthand of emotion.</span>
+        <span id="powered-by">—</span>
+      </footer>
+    </main>
+
+    <dialog id="snapshot-dialog">
+      <h3>时光机</h3>
+      <p class="muted">切换到某一天的歌单快照，看看过去的自己听什么。</p>
+      <ul id="snapshot-list" class="snapshot-list"></ul>
+      <button value="cancel" class="ghost">关闭</button>
+    </dialog>
+
+    <dialog id="swap-dialog">
+      <h3>热插拔 · 换一份歌单</h3>
+      <p class="muted">输入任意公开网易云歌单 ID（例如 <code>317113395</code>），即可让本站渲染对方品味。</p>
+      <form id="swap-form">
+        <input id="swap-input" type="text" placeholder="歌单 ID" autocomplete="off" />
+        <button type="submit">生成</button>
+      </form>
+      <button value="cancel" class="ghost">关闭</button>
+    </dialog>
+
+    <template id="tpl-section">
+      <article class="card">
+        <header class="card-head">
+          <h3></h3>
+          <p class="card-sub"></p>
+        </header>
+        <div class="card-body"></div>
+      </article>
+    </template>
+
+    <template id="tpl-cover-grid">
+      <div class="cover-grid"></div>
+    </template>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

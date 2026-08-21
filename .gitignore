@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.local
+data/snapshots/*.tmp
+# public/data 是 workflow 构建时的副本，由 data/ 自动同步生成
+public/data/
