@@ -38,13 +38,15 @@ jobs:
           NCM_PLAYLIST_ID: ${{ inputs.playlist_id || '710883180' }}
         run: |
           python3 scripts/fetch_playlist.py
-          # 同步到 public/ 让构建带出
+          # 同步到 public/ 让构建带出（public/data 被 gitignore，需先创建）
+          mkdir -p public/data
           cp -r data/* public/data/
-          # 热插拔：手动触发的非默认歌单 → 存到 data/external/<id>.json
+          # 热插拔：手动触发的非默认歌单 → 存到 public/data/external/<id>.json
           # 前端 ?id=xxx 时优先加载该文件
-          if [ -n "${{ inputs.playlist_id }}" ] && [ "${{ inputs.playlist_id }}" != "710883180" ]; then
+          EXTERNAL_ID="${{ inputs.playlist_id }}"
+          if [ -n "$EXTERNAL_ID" ] && [ "$EXTERNAL_ID" != "710883180" ]; then
             mkdir -p public/data/external
-            cp data/latest.json "public/data/external/${{ inputs.playlist_id }}.json"
+            cp data/latest.json "public/data/external/$EXTERNAL_ID.json"
           fi
 
       - name: 提交数据更新（若有变化）
