@@ -9,11 +9,16 @@ export function renderTodaysPick(host: HTMLElement, tracks: Track[]) {
   const wrap = document.createElement('div')
   wrap.className = 'todays-pick'
   wrap.innerHTML = `
-    <img src="${t.album.picUrl}?param=200y200" alt="" />
-    <div>
+    <div class="pick-art">
+      <img src="${t.album.picUrl}?param=320y320" alt="" />
+      <span class="pick-orbit"></span>
+    </div>
+    <div class="pick-copy">
+      <div class="pick-kicker">TODAY'S LISTENING NOTE</div>
       <h4>${escapeHtml(t.name)}</h4>
       <div class="ar">${escapeHtml(t.artists.map(a => a.name).join(' / '))}</div>
       <div class="poem">${escapeHtml(poemFor(t))}</div>
+      <button class="pick-refresh" type="button">换一首 <span>↗</span></button>
     </div>
   `
   host.appendChild(wrap)

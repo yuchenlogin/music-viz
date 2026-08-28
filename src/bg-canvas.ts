@@ -7,7 +7,7 @@ export function startBackground() {
   let particles: Particle[] = []
   let rafId = 0
 
-  const COLORS = ['#79f0d0', '#c8a4ff', '#ff9e7d', '#a4ffb8', '#ffd87d']
+  const COLORS = ['#d6ad73', '#a8b9a1', '#d98768', '#c8b08a', '#8f9d85']
   const COUNT = 60
 
   class Particle {

@@ -3,74 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0a0a" />
-    <meta name="description" content="我的音乐人格 · 网易云歌单品味可视化" />
-    <title>我的音乐人格</title>
+    <meta name="theme-color" content="#11100e" />
+    <meta name="description" content="音乐人格档案 · 记录一份歌单如何陪伴一个人长大" />
+    <title>音乐人格档案</title>
     <link rel="preconnect" href="https://p1.music.126.net" crossorigin />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
 
     <header id="topbar">
-      <div class="brand">
-        <span class="brand-mark"></span>
-        <span class="brand-text">我的音乐人格</span>
-      </div>
-      <div class="topbar-meta">
-        <span id="snapshot-date">—</span>
-        <button id="snapshot-btn" class="ghost" title="切换历史快照">⏱ 时光机</button>
-        <button id="swap-btn" class="ghost" title="换一份歌单">🔌 换歌单</button>
-      </div>
+      <a class="brand" href="#top" aria-label="回到顶部"><span class="brand-mark"><i></i></span><span class="brand-text">音乐人格档案</span></a>
+      <nav class="topnav" aria-label="页面导航"><a href="#portrait">人格切片</a><a href="#timeline">时间回声</a><a href="#library">收藏肌理</a></nav>
+      <div class="topbar-actions"><span id="snapshot-date" class="snapshot-date">—</span><button id="snapshot-btn" class="toolbar-btn" title="切换历史快照"><span>◷</span> 时光机</button><button id="swap-btn" class="toolbar-btn toolbar-btn-primary" title="换一份歌单"><span>＋</span> 换歌单</button></div>
     </header>
 
     <main id="app-root">
-      <section id="hero" class="hero">
-        <div class="hero-eyebrow"><span id="creator">—</span> · <span id="track-count">—</span> 首</div>
-        <h1 id="playlist-name">载入中…</h1>
-        <p id="playlist-desc" class="hero-desc"></p>
+      <section id="top" class="hero">
+        <div class="hero-copy">
+          <div class="hero-eyebrow"><span class="eyebrow-line"></span> A YEAR IN SOUND · 音乐人格档案</div>
+          <div class="hero-title-row"><div><p id="creator" class="hero-creator">—</p><h1 id="playlist-name">载入中…</h1><p id="playlist-desc" class="hero-desc"></p></div><div class="hero-index" aria-label="档案编号"><span>ARCHIVE</span><strong id="archive-index">01</strong></div></div>
+          <div id="hero-meta" class="hero-meta"></div>
+          <div class="hero-footnote"><span class="live-dot"></span><span id="hero-footnote-text">正在读取这份歌单留下的时间痕迹</span></div>
+        </div>
+        <div class="hero-art" aria-label="歌单封面"><div class="hero-art-glow"></div><div class="hero-art-frame"><img id="playlist-cover" src="" alt="" /></div><div class="hero-art-ring ring-one"></div><div class="hero-art-ring ring-two"></div><div class="hero-art-caption"><span>CURATED OVER TIME</span><b id="hero-track-count">—</b><em>首</em></div></div>
       </section>
 
-      <section id="report" class="report"></section>
+      <section id="portrait" class="section-block portrait-section">
+        <div class="section-heading"><div><p class="section-kicker">01 / 人格切片</p><h2>音乐替你保存<br /><i>那些没有被说出的部分。</i></h2></div><p class="section-note">以下文字来自歌名、艺人跨度、发行年代与收藏密度的交叉观察。它不是诊断，只是一面温柔的镜子。</p></div>
+        <div id="report" class="portrait-grid"></div>
+      </section>
 
-      <section id="sections" class="sections"></section>
+      <section id="timeline" class="section-block timeline-section">
+        <div class="section-heading compact"><div><p class="section-kicker">02 / 时间回声</p><h2>一份歌单，<i>其实是一条私人年轮。</i></h2></div><p class="section-note">从最早发行的作品，到今天仍在加入的声音，每一个年份都像一扇还留着灯的房间。</p></div>
+        <div class="timeline-layout"><div id="timeline-story" class="timeline-story"></div><article class="card timeline-chart-card"><header class="card-head"><div><p class="card-kicker">RELEASE YEARS</p><h3>年份脉络</h3></div><span class="card-index">02</span></header><p class="card-sub">收藏歌曲的发行年份分布</p><div id="timeline-chart" class="card-body chart-body"></div></article></div>
+      </section>
 
-      <footer class="footer">
-        <span>Music is the shorthand of emotion.</span>
-        <span id="powered-by">—</span>
-      </footer>
+      <section id="library" class="section-block library-section">
+        <div class="section-heading compact"><div><p class="section-kicker">03 / 收藏肌理</p><h2>偏爱不是标签，<i>是反复回到同一束光。</i></h2></div><p class="section-note">把数字还原成触感：熟悉的声音、冒险的半径，以及你愿意听完的长度。</p></div>
+        <div id="sections" class="sections"></div>
+      </section>
+
+      <footer class="footer"><div><span class="footer-mark">♫</span><span>Music is the shorthand of emotion.</span></div><span id="powered-by">A quiet archive for a life in sound.</span></footer>
     </main>
 
-    <dialog id="snapshot-dialog">
-      <h3>时光机</h3>
-      <p class="muted">切换到某一天的歌单快照，看看过去的自己听什么。</p>
-      <ul id="snapshot-list" class="snapshot-list"></ul>
-      <button value="cancel" class="ghost">关闭</button>
-    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <dialog id="swap-dialog">
-      <h3>热插拔 · 换一份歌单</h3>
-      <p class="muted">输入任意公开网易云歌单 ID（例如 <code>317113395</code>），即可让本站渲染对方品味。</p>
-      <form id="swap-form">
-        <input id="swap-input" type="text" placeholder="歌单 ID" autocomplete="off" />
-        <button type="submit">生成</button>
-      </form>
-      <button value="cancel" class="ghost">关闭</button>
-    </dialog>
+    <dialog id="snapshot-dialog" class="archive-dialog"><div class="dialog-head"><div><p class="section-kicker">TIME MACHINE</p><h3>回到某一天</h3></div><button class="dialog-close" value="cancel" aria-label="关闭">×</button></div><p class="muted">每一份快照，都是当时的你给未来留下的声音注脚。</p><ul id="snapshot-list" class="snapshot-list"></ul></dialog>
 
-    <template id="tpl-section">
-      <article class="card">
-        <header class="card-head">
-          <h3></h3>
-          <p class="card-sub"></p>
-        </header>
-        <div class="card-body"></div>
-      </article>
-    </template>
+    <dialog id="swap-dialog" class="archive-dialog"><div class="dialog-head"><div><p class="section-kicker">SWAP ARCHIVE</p><h3>换一份歌单</h3></div><button class="dialog-close" value="cancel" aria-label="关闭">×</button></div><p class="muted">输入公开网易云歌单 ID。已同步到本站的数据会在当前页面无刷新切换。</p><form id="swap-form"><label for="swap-input">PLAYLIST ID</label><div class="swap-row"><input id="swap-input" type="text" placeholder="例如 317113395" autocomplete="off" inputmode="numeric" /><button type="submit">载入 <span>↗</span></button></div><p id="swap-status" class="form-status" aria-live="polite"></p></form></dialog>
 
-    <template id="tpl-cover-grid">
-      <div class="cover-grid"></div>
-    </template>
+    <template id="tpl-section"><article class="card"><header class="card-head"><div><p class="card-kicker"></p><h3></h3></div><span class="card-index"></span></header><p class="card-sub"></p><div class="card-body"></div></article></template>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

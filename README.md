@@ -34,9 +34,16 @@ npm run dev
 
 ## 🌐 部署
 
-`.github/workflows/daily.yml` 会：
-1. 每天 UTC 0:00 跑抓取脚本，把结果 commit 回 `data/snapshots/`
+1. 把仓库推到 GitHub（仓库名建议 `music-viz`，与 `vite.config.ts` 的 base 一致；若不同，改 `VITE_BASE` 或 vite config）
+2. 打开仓库 **Settings → Pages**，Source 选择 **GitHub Actions**
+3. 手动触发一次 workflow（Actions → daily-update → Run workflow），即可完成首次抓取 + 部署
+
+`.github/workflows/daily.yml` 之后会：
+1. 每天 UTC 22:00 跑抓取脚本，把结果 commit 回 `data/snapshots/`（历史快照永久保留）
 2. 同时 build 前端并部署到 GitHub Pages
+
+**手动触发 + 传歌单 ID**：在 Actions → Run workflow 时输入 `playlist_id`（非默认歌单），
+数据会存为 `data/external/<id>.json`，别人访问 `?id=<id>` 就能看到对方的品味页。
 
 ## 📁 目录
 

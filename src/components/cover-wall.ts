@@ -4,18 +4,20 @@ import type { Track } from '../types'
 export function renderCoverWall(host: HTMLElement, tracks: Track[], limit = 60) {
   host.innerHTML = ''
   const grid = document.createElement('div')
-  grid.className = 'cover-grid'
+  grid.className = 'cover-atlas'
   host.appendChild(grid)
 
   const list = tracks.slice(0, limit)
   const frag = document.createDocumentFragment()
   list.forEach((t, i) => {
     const el = document.createElement('div')
-    el.className = 'cover'
-    el.style.animationDelay = `${Math.min(i * 25, 1500)}ms`
+    el.className = `cover-tile ${i === 0 ? 'is-featured' : ''}`
+    el.style.setProperty('--i', String(i))
+    el.style.animationDelay = `${Math.min(i * 20, 1200)}ms`
     el.innerHTML = `
-      <img loading="lazy" src="${t.album.picUrl}?param=240y240" alt="${t.name}" />
+      <img loading="lazy" src="${t.album.picUrl}?param=480y480" alt="${escapeHtml(t.name)}" />
       <div class="meta">
+        <span class="index">${String(i + 1).padStart(2, '0')}</span>
         <b>${escapeHtml(t.name)}</b>
         <span>${escapeHtml(t.artists.map(a => a.name).join(' / '))}</span>
       </div>

@@ -32,6 +32,22 @@ export interface PersonalityReport {
   meta: string
 }
 
+export interface PsychologyProfile {
+  archetype: string
+  emotionalTone: string
+  emotionalSummary: string
+  rhythm: string
+  rhythmSummary: string
+  curiosity: string
+  curiositySummary: string
+  memory: string
+  memorySummary: string
+  moodScore: number
+  energyScore: number
+  nostalgiaScore: number
+  discoveryScore: number
+}
+
 export interface Analytics {
   total: number
   decade: DecadeBucket[]
@@ -49,6 +65,7 @@ export interface Analytics {
   hidden: Track[]          // 流行度 < 40（冷门珍藏）
   paletteHex: string[]    // 从封面提取的 6 色 hex（懒解析，前端取）
   personality: PersonalityReport
+  psychology: PsychologyProfile
 }
 
 const fmt = (n: number) => n.toLocaleString('en-US')
@@ -155,6 +172,8 @@ export function analyze(snap: Snapshot): Analytics {
     yearSpan,
   })
 
+  const psychology = makePsychology({ tracks, artistsTop, yearSpan, meanDur, meanPop, year })
+
   return {
     total: tracks.length,
     decade,
@@ -172,6 +191,70 @@ export function analyze(snap: Snapshot): Analytics {
     hidden,
     paletteHex: [],
     personality,
+    psychology,
+  }
+}
+
+function makePsychology(p: {
+  tracks: Track[]
+  artistsTop: ArtistCount[]
+  yearSpan: { min: number; max: number }
+  meanDur: number
+  meanPop: number
+  year: YearBucket[]
+}): PsychologyProfile {
+  const text = p.tracks.map(t => `${t.name} ${t.artists.map(a => a.name).join(' ')}`).join(' ')
+  const countMatches = (words: string[]) => words.reduce((sum, word) => sum + (text.toLowerCase().split(word.toLowerCase()).length - 1), 0)
+  const reflective = countMatches(['夜', '月', '梦', '想念', '思念', '离开', '后来', '孤独', '雨', 'remember', 'love', 'miss', 'home', 'alone'])
+  const bright = countMatches(['sun', 'light', 'day', 'happy', 'dance', '夏', '晴', '笑', '快乐', '勇敢', '自由'])
+  const intense = countMatches(['rock', 'metal', 'live', 'fire', '战', '狂', 'break', 'run', 'heart'])
+  const recent = p.tracks.filter(t => (t.publishYear || 0) >= 2020).length
+  const classic = p.tracks.filter(t => (t.publishYear || 0) > 0 && (t.publishYear || 0) < 2010).length
+  const uniqueArtistRatio = p.artistsTop.length / Math.max(1, p.tracks.length)
+  const moodScore = Math.max(18, Math.min(92, 52 + reflective * 3 - bright * 1.6))
+  const energyScore = Math.max(18, Math.min(92, 42 + intense * 3 + (p.meanPop - 70) * 0.25))
+  const nostalgiaScore = Math.max(15, Math.min(94, 24 + classic / Math.max(1, p.tracks.length) * 100 * 0.7 + (p.yearSpan.max - p.yearSpan.min > 30 ? 12 : 0)))
+  const discoveryScore = Math.max(18, Math.min(92, 28 + uniqueArtistRatio * 100 * 0.95 + recent / Math.max(1, p.tracks.length) * 25))
+
+  const emotionalTone = moodScore > 68
+    ? '夜行的感受力'
+    : energyScore > 68
+      ? '带电的生命力'
+      : '留白里的平衡'
+  const emotionalSummary = moodScore > 68
+    ? '你会把不便言说的部分交给旋律保管，情绪不是噪音，而是观察生活的方式。'
+    : energyScore > 68
+      ? '你的收藏里有明显的推进感：需要向前时，音乐会先替你把灯打开。'
+      : '你不急着把情绪说满，明亮与阴影并置，给自己留出回声。'
+  const rhythm = p.meanDur >= 280 ? '长镜头式聆听' : p.meanDur <= 210 ? '短章式切换' : '稳定的中速呼吸'
+  const rhythmSummary = p.meanDur >= 280
+    ? '平均时长偏长，说明你愿意把一段叙事听完，而不是只寻找即时刺激。'
+    : p.meanDur <= 210
+      ? '短歌比例更高，你擅长在不同场景之间快速换气。'
+      : '歌曲长度分布均衡，像一条不疾不徐的日常轨道。'
+  const curiosity = discoveryScore > 65 ? '开放式收藏家' : '深挖式收藏家'
+  const curiositySummary = discoveryScore > 65
+    ? '艺人跨度与近年作品都很丰富，你会持续给未知留位置。'
+    : '你更在意关系的深度，常常沿着熟悉的声音继续向下挖掘。'
+  const memory = nostalgiaScore > 65 ? '记忆驱动型' : '当下感知型'
+  const memorySummary = nostalgiaScore > 65
+    ? '旧年代作品占据重要位置，某些年份像私人坐标，随时可以回到当时。'
+    : '新近作品占比不低，你更习惯让正在发生的生活进入歌单。'
+
+  return {
+    archetype: `${emotionalTone} · ${rhythm}`,
+    emotionalTone,
+    emotionalSummary,
+    rhythm,
+    rhythmSummary,
+    curiosity,
+    curiositySummary,
+    memory,
+    memorySummary,
+    moodScore: Math.round(moodScore),
+    energyScore: Math.round(energyScore),
+    nostalgiaScore: Math.round(nostalgiaScore),
+    discoveryScore: Math.round(discoveryScore),
   }
 }
 
