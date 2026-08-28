@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#11100e" />
-    <meta name="description" content="音乐人格档案 · 记录一份歌单如何陪伴一个人长大" />
+    <meta name="theme-color" content="#12110f" />
+    <meta name="description" content="音乐人格档案 · 一份歌单如何陪伴一个人长大" />
     <title>音乐人格档案</title>
     <link rel="preconnect" href="https://p1.music.126.net" crossorigin />
     <link rel="stylesheet" href="/src/style.css" />
@@ -21,41 +21,65 @@
 
     <main id="app-root">
       <section id="top" class="hero">
-        <div class="hero-copy">
-          <div class="hero-eyebrow"><span class="eyebrow-line"></span> A YEAR IN SOUND · 音乐人格档案</div>
-          <div class="hero-title-row"><div><p id="creator" class="hero-creator">—</p><h1 id="playlist-name">载入中…</h1><p id="playlist-desc" class="hero-desc"></p></div><div class="hero-index" aria-label="档案编号"><span>ARCHIVE</span><strong id="archive-index">01</strong></div></div>
-          <div id="hero-meta" class="hero-meta"></div>
-          <div class="hero-footnote"><span class="live-dot"></span><span id="hero-footnote-text">正在读取这份歌单留下的时间痕迹</span></div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="hero-eyebrow"><span class="eyebrow-line"></span> A YEAR IN SOUND · 01—∞</div>
+            <p class="hero-overline">A PERSONAL MUSIC ARCHIVE</p>
+            <h1><span>THIS IS</span><strong id="playlist-name">载入中…</strong></h1>
+            <p id="playlist-desc" class="hero-desc"></p>
+            <div id="hero-meta" class="hero-meta"></div>
+            <div class="hero-footnote"><span class="live-dot"></span><span id="hero-footnote-text">正在读取这份歌单留下的时间痕迹</span></div>
+          </div>
+
+          <div class="hero-stage" id="hero-stage" aria-label="歌单封面与今日选曲">
+            <div class="stage-label stage-label-left">CURATED<br />OVER TIME</div>
+            <div class="stage-label stage-label-right"><span id="hero-year-range">—</span><small>YEARS IN EAR</small></div>
+            <div class="stage-orbit orbit-outer"></div><div class="stage-orbit orbit-mid"></div><div class="stage-orbit orbit-inner"></div>
+            <div class="stage-record"><div class="record-groove groove-one"></div><div class="record-groove groove-two"></div><div class="record-groove groove-three"></div><img id="playlist-cover" src="" alt="" /><span class="record-center"></span></div>
+            <div class="stage-nowplaying"><span class="nowplaying-kicker">A RANDOM MEMORY</span><strong id="stage-track">—</strong><span id="stage-artist">—</span><a id="stage-link" href="#" target="_blank" rel="noreferrer">打开歌曲 <b>↗</b></a></div>
+            <div class="stage-count"><strong id="hero-track-count">—</strong><span>TRACKS<br />COLLECTED</span></div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="hero-side-top"><span>ARCHIVE</span><strong id="archive-index">01</strong></div>
+            <div class="hero-side-rule"></div>
+            <div class="hero-side-stat"><span>最常出现的声音</span><strong id="hero-top-artist">—</strong><small id="hero-top-artist-count">—</small></div>
+            <div class="hero-side-stat"><span>歌单建立于</span><strong id="hero-created">—</strong><small id="hero-updated">—</small></div>
+            <div class="hero-scroll"><span>SCROLL TO EXPLORE</span><i></i></div>
+          </aside>
         </div>
-        <div class="hero-art" aria-label="歌单封面"><div class="hero-art-glow"></div><div class="hero-art-frame"><img id="playlist-cover" src="" alt="" /></div><div class="hero-art-ring ring-one"></div><div class="hero-art-ring ring-two"></div><div class="hero-art-caption"><span>CURATED OVER TIME</span><b id="hero-track-count">—</b><em>首</em></div></div>
       </section>
 
       <section id="portrait" class="section-block portrait-section">
-        <div class="section-heading"><div><p class="section-kicker">01 / 人格切片</p><h2>音乐替你保存<br /><i>那些没有被说出的部分。</i></h2></div><p class="section-note">以下文字来自歌名、艺人跨度、发行年代与收藏密度的交叉观察。它不是诊断，只是一面温柔的镜子。</p></div>
-        <div id="report" class="portrait-grid"></div>
+        <header class="section-intro"><div class="section-number">01</div><div><p class="section-kicker">INNER WEATHER / 人格切片</p><h2>音乐替你保存，<br /><i>那些没有被说出的部分。</i></h2></div><p class="section-note">这不是诊断。只是从歌名、艺人跨度、发行年代与收藏密度里，读出一份长期主义者的情绪天气。</p></header>
+        <div class="portrait-layout">
+          <article class="portrait-statement"><div class="stamp">THE LISTENER<br /><b id="portrait-stamp">—</b></div><p class="statement-kicker">MUSIC PERSONALITY / 主叙事</p><h3 id="personality-headline">—</h3><p id="personality-quote" class="statement-copy">—</p><div class="statement-meta" id="personality-meta">—</div></article>
+          <article class="portrait-spectrum"><div class="spectrum-head"><div><p class="statement-kicker">FOUR SIGNALS</p><h3>你的声音，<i>有四种方向。</i></h3></div><span class="spectrum-mark">✳</span></div><div id="mood-radar" class="mood-radar"></div><div class="spectrum-foot"><span>情绪不是结论</span><span>它只是此刻的光</span></div></article>
+          <aside class="portrait-marginal"><span class="marginal-index">01 / 03</span><p>“一份歌单的真正价值，不是它收集了多少首歌，而是它替你记住了哪些时刻。”</p><span class="marginal-line"></span></aside>
+        </div>
       </section>
 
       <section id="timeline" class="section-block timeline-section">
-        <div class="section-heading compact"><div><p class="section-kicker">02 / 时间回声</p><h2>一份歌单，<i>其实是一条私人年轮。</i></h2></div><p class="section-note">从最早发行的作品，到今天仍在加入的声音，每一个年份都像一扇还留着灯的房间。</p></div>
-        <div class="timeline-layout"><div id="timeline-story" class="timeline-story"></div><article class="card timeline-chart-card"><header class="card-head"><div><p class="card-kicker">RELEASE YEARS</p><h3>年份脉络</h3></div><span class="card-index">02</span></header><p class="card-sub">收藏歌曲的发行年份分布</p><div id="timeline-chart" class="card-body chart-body"></div></article></div>
+        <header class="section-intro"><div class="section-number">02</div><div><p class="section-kicker">MEMORY LINE / 时间回声</p><h2>一份歌单，<br /><i>其实是一条私人年轮。</i></h2></div><p class="section-note">发行年份只是表面。真正的时间线，是你在不同阶段反复回到什么声音。</p></header>
+        <div class="timeline-layout"><div class="timeline-plot-shell"><div class="plot-caption"><span>RELEASE YEARS / SONG COUNT</span><strong id="timeline-range">—</strong></div><div id="timeline-chart" class="timeline-chart"></div></div><div id="timeline-story" class="timeline-story"></div></div>
       </section>
 
       <section id="library" class="section-block library-section">
-        <div class="section-heading compact"><div><p class="section-kicker">03 / 收藏肌理</p><h2>偏爱不是标签，<i>是反复回到同一束光。</i></h2></div><p class="section-note">把数字还原成触感：熟悉的声音、冒险的半径，以及你愿意听完的长度。</p></div>
-        <div id="sections" class="sections"></div>
+        <header class="section-intro"><div class="section-number">03</div><div><p class="section-kicker">COLLECTION GRAIN / 收藏肌理</p><h2>偏爱不是标签，<br /><i>是反复回到同一束光。</i></h2></div><p class="section-note">把静态封面收起来。让声音自己移动、聚拢、被重新选择。</p></header>
+        <div class="library-layout">
+          <article class="deck-panel library-panel"><header class="panel-head"><div><p class="panel-kicker">SELECT A MEMORY</p><h3>声音坐标</h3></div><span class="panel-index">03—A</span></header><div class="deck-stage"><div class="deck-backdrop"></div><div class="deck-cover-wrap"><img id="deck-cover" src="" alt="" /><span class="deck-glint"></span></div><div class="deck-copy"><span id="deck-position" class="deck-position">01 / 12</span><h4 id="deck-title">—</h4><p id="deck-artist">—</p><div class="deck-details"><span id="deck-year">—</span><span id="deck-duration">—</span><span id="deck-popularity">—</span></div><a id="deck-link" href="#" target="_blank" rel="noreferrer">在网易云打开 <b>↗</b></a></div></div><div id="track-deck" class="track-deck"></div><div class="deck-hint"><span>点击下方任意一首</span><span>让它登上舞台</span></div></article>
+          <article class="artist-panel library-panel"><header class="panel-head"><div><p class="panel-kicker">FAMILIAR VOICES</p><h3>你的声音星系</h3></div><span class="panel-index">03—B</span></header><div class="artist-lead"><span>最靠近你的名字</span><strong id="artist-lead-name">—</strong><small id="artist-lead-count">—</small></div><div id="artist-tags" class="artist-tags"></div><div class="artist-orbit"><span></span><span></span><span></span><b>LISTEN<br />CLOSER</b></div></article>
+          <article class="pulse-panel library-panel"><header class="panel-head"><div><p class="panel-kicker">ATTENTION / PULSE</p><h3>你愿意听完的长度</h3></div><span class="panel-index">03—C</span></header><div class="pulse-number"><strong id="mean-duration">—</strong><span>平均每首歌</span></div><div class="pulse-track"><i id="duration-progress"></i></div><div class="pulse-foot"><span>短句</span><span>长叙事</span></div><div class="pulse-copy" id="duration-copy">—</div></article>
+          <article class="palette-panel library-panel"><header class="panel-head"><div><p class="panel-kicker">VISUAL TEMPERATURE</p><h3>这份歌单的颜色</h3></div><span class="panel-index">03—D</span></header><div id="palette-strip" class="palette-strip"></div><p id="palette-copy" class="palette-copy">封面会泄露情绪的温度。把鼠标移上去，看看哪一种颜色停留得更久。</p><div class="palette-legend"><span><i></i>低饱和 / 留白</span><span><i></i>高亮 / 靠近</span></div></article>
+        </div>
       </section>
 
       <footer class="footer"><div><span class="footer-mark">♫</span><span>Music is the shorthand of emotion.</span></div><span id="powered-by">A quiet archive for a life in sound.</span></footer>
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
     <dialog id="snapshot-dialog" class="archive-dialog"><div class="dialog-head"><div><p class="section-kicker">TIME MACHINE</p><h3>回到某一天</h3></div><button class="dialog-close" value="cancel" aria-label="关闭">×</button></div><p class="muted">每一份快照，都是当时的你给未来留下的声音注脚。</p><ul id="snapshot-list" class="snapshot-list"></ul></dialog>
-
     <dialog id="swap-dialog" class="archive-dialog"><div class="dialog-head"><div><p class="section-kicker">SWAP ARCHIVE</p><h3>换一份歌单</h3></div><button class="dialog-close" value="cancel" aria-label="关闭">×</button></div><p class="muted">输入公开网易云歌单 ID。已同步到本站的数据会在当前页面无刷新切换。</p><form id="swap-form"><label for="swap-input">PLAYLIST ID</label><div class="swap-row"><input id="swap-input" type="text" placeholder="例如 317113395" autocomplete="off" inputmode="numeric" /><button type="submit">载入 <span>↗</span></button></div><p id="swap-status" class="form-status" aria-live="polite"></p></form></dialog>
-
-    <template id="tpl-section"><article class="card"><header class="card-head"><div><p class="card-kicker"></p><h3></h3></div><span class="card-index"></span></header><p class="card-sub"></p><div class="card-body"></div></article></template>
-
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
